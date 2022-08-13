@@ -26,18 +26,18 @@
             <div class="form-input">
                 <div>Username</div>
                 <div>
-                    <input>
+                    <input id="username">
                     <img src="./assets/person.png"/>
                 </div>
             </div>
             <div class="form-input">
                 <div>Password</div>
                 <div>
-                    <input type="password">
+                    <input id="password" type="password">
                     <img src="./assets/lock.png"/>
                 </div>
             </div>
-            <div id="login-singup-button">
+            <div onClick="registerLogin()" id="login-singup-button">
                 login
             </div>
 
@@ -63,6 +63,26 @@
             element.id = "selected"
             document.getElementById("login-singup-button").textContent=string
         }
+        function registerLogin(){
+            let username = document.getElementById('username').value
+            let password = document.getElementById('password').value
+
+            const parameters = {
+                "username":username,
+                "password":password
+            }
+            const options = {
+                'method':'POST',
+                'body':JSON.stringify(parameters)
+            }
+
+            fetch("http://127.0.0.1:5000/register",options).then(response =>{
+                response.json().then(response=>{
+                    console.log(response)
+                })}
+            )
+        }
+
     </script>
 </body>
 </html>

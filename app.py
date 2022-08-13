@@ -1,4 +1,7 @@
-from flask import Flask, jsonify
+from shutil import unregister_unpack_format
+from sre_constants import SUCCESS
+from urllib import request
+from flask import Flask, jsonify,request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session,sessionmaker
 
@@ -17,7 +20,11 @@ def createTable(query):
     print('SUCCESS!')
 
 
-
+@app.route('/register', methods = ['POST'])
+def register():
+    username = request.get_json(force=True)
+    print(username['username'])
+    return jsonify({'username':username['username']})
 
 if __name__ == '__main__':
     app.run(debug=True)
