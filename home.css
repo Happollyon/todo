@@ -11,6 +11,7 @@ body,html{
     background-color: #F5F5F5;
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 }
 #menu{
     height: 100%;
@@ -25,10 +26,18 @@ body,html{
 
 }
 #body-container{
-  
+    flex-wrap: wrap;
     width: 82.45%;
     height: 100%;
     background-color: #F5F5F5;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 5%;
+    overflow: auto;
+   
+    
+    
 }
 #home-title{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -108,9 +117,15 @@ body,html{
     font-size: 0.8vw;
 }
 .item-body{
+    overflow: auto;
     height: 73%;
     width: 100%;
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    
 }
 .item-add{
     color: #fff;
@@ -134,6 +149,27 @@ body,html{
 }
 .item-add>img:hover{
     cursor: pointer;
+}
 .item-add>img{
     width: 10%;
+}
+
+
+.task{
+    height: 9%;
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    margin-top:3% ;
+
+}
+.check{
+    margin-right:0.5vw;
+    width: 13%;
+    height: 100%;
+    border: 1px #6E93B9 solid;
+}
+.task-description{
+
+color:black;
 }
