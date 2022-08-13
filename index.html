@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    <img id="photo" style="height:100%; width: 47%;" src="./assets/henrik-donnestad-t2Sai-AqIpI-unsplash.png"/>
+    <div id="landing-container">
+
+        <div id="title">
+            ToDo
+        </div>
+        <div id="form-container">
+            <div id="login-signup">
+                    <div onclick="select('Login',this)" id="selected">
+                        Login
+                    </div>
+                    <div onclick="select('Register',this)">
+                        Signup
+                    </div>
+            </div>
+
+            <div class="form-input">
+                <div>Username</div>
+                <div>
+                    <input>
+                    <img src="./assets/person.png"/>
+                </div>
+            </div>
+            <div class="form-input">
+                <div>Password</div>
+                <div>
+                    <input type="password">
+                    <img src="./assets/lock.png"/>
+                </div>
+            </div>
+            <div id="login-singup-button">
+                login
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function select(string,element){
+            document.querySelector("#selected").id="";
+            element.id = "selected"
+            document.getElementById("login-singup-button").textContent=string
+        }
+    </script>
+</body>
+</html>

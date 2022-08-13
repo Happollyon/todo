@@ -1,0 +1,107 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+input{
+    all: unset;
+}
+body,html{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#photo {
+  
+    border-bottom-right-radius: 10%;
+    border-top-right-radius: 10%;
+   
+}
+#landing-container{
+    width: 53%;
+    height: 100%;
+    display: flex;
+    flex-direction:column ;
+    justify-content: space-around;
+    align-items: center;
+}
+#title{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 5vw;
+}
+#form-container{
+    width: 54.19%;
+    height: 64.25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+#login-signup{
+    width: 100%;
+    height: 11.8%;
+    display: flex;
+    flex-direction: row;
+}
+#login-signup>div:first-child{
+   
+    border-right: 2px black solid;
+}
+#login-signup>div:hover{
+    cursor: pointer;
+}
+#login-signup>div{
+    width: 50%;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 1.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ #selected:hover{
+    cursor: pointer;
+    color: #2777cd;
+ }
+ #selected{
+    color: #1668BD;
+ }
+ .form-input{
+    width: 100%;
+    height: 16.70%;
+    color: #707070;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 1.3vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+ }
+ .form-input>div:nth-child(2){
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+ }
+ .form-input>div>input{
+    border-bottom: 2px #1668BD solid;
+    width: 85%;
+ }
+ #login-singup-button:hover{
+    cursor: pointer;
+    background-color: #2777cd;
+ }
+#login-singup-button{
+    color: white;
+    font-size: 1.3vw;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1668BD;
+    height: 13.11%;
+    width: 90%;
+    border-radius: 3vw;
+}
