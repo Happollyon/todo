@@ -83,7 +83,9 @@
             let password = document.getElementById('password').value
             let val = document.getElementById("login-singup-button").textContent
             let url
-            if(val=="login"){
+            
+            
+            if(val.trim()==="login"){
                 url = "http://127.0.0.1:5000/login/"
             }else{
                 url = "http://127.0.0.1:5000/register/"
@@ -93,8 +95,9 @@
             fetch(url+username+'/'+password).then(response =>{
                 response.json().then(response=>{
                    if(response.login==true){
-                    console.log(response)
                     localStorage.setItem('logged','true')
+                    alert(response.response[0].user_id)
+                    localStorage.setItem('user_id', response.response.user_id)
                     window.location.href='./home.html'
                    }else{
                     alert('Try again')

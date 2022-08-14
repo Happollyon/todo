@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
 </head>
-<body>
+<body onload="isLogged()">
     <div id="menu">
         <div id="home-title">ToDO</div>
 
@@ -19,7 +19,7 @@
                 <div>- Thursday</div>
                 <div>- Friday</div>
         </div>
-        <div id="logout">
+        <div onclick="logout()" id="logout">
             LOGOUT
         </div>
     </div>
@@ -203,8 +203,44 @@
             </div>
             
         </div>
-       <img id='add-button'src="./assets/button.png" alt="add">
+       <img onclick="addItem()" id='add-button'src="./assets/button.png" alt="add">
     </div>
+
+    <script>
+        /**this function checkes 
+         * if user is already lo    gged**/
+         function isLogged(){
+            const logged = localStorage.getItem('logged')
+            if(logged=='true'){
+                window.location.href='./home.html'
+            }else{
+                window.location.href='./index.html'
+            }
+        }
+
+        /**
+         * This function will log the user out
+         * **/
+
+         function logout(){
+            localStorage.setItem('logged','false')
+            window.location.href='./index.html'
+         }
+
+         /**
+          * this function adds a new 
+          * item to the database
+          * **/
+         function addItem(){
+            let user_id = localStorage.getItem('user_id')
+            let title = prompt("please enter title: ")
+            fetch('http://127.0.0.1:5000/additem/'+user_id+'/'+title).then(response =>{
+                response.json().then(response=>{
+                    alert(response.response.item_id +' '+response.response.title)
+                })
+            })
+         }
+</script>
 </body>
 </html>
 

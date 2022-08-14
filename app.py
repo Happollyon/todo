@@ -1,3 +1,4 @@
+from crypt import methods
 import re
 from urllib import response
 from flask import Flask, jsonify,request
@@ -23,19 +24,34 @@ def createTable(query):
 
 @app.route('/register/<string:username>/<string:password>',methods=['GET'])
 def register(username,password):
-    result = db.execute("INSERT INTO users(username,password) VALUES(:username,:password) RETURNING user_id, username",{'username':username,'password':password}).fetchall()
+    usernamecheck = db.execute("SELECT * FROM users WHERE username = :username ",{'username':username}).fetchall()
     db.commit()
-    response = jsonify({'login':True,'response':[dict(row) for row in result]})
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    return  response
+    if usernamecheck:
+        response = jsonify({'login':False})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        print('success')
+        return  response
+    else:    
+        result = db.execute("INSERT INTO users(username,password) VALUES(:username,:password) RETURNING user_id, username",{'username':username,'password':password}).fetchall()
+        db.commit()
+        response = jsonify({'login':True,'response':[dict(row) for row in result]})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return  response
 
-@app.route('/login/<string:username>/<string:password>')
+@app.route('/login/<string:username>/<string:password>',methods=['GET'])
 def login(username,password):
-    result = db.execute("SELECT username,user_id FROM users WHERE usernam=:username AND password =:password",{'username':username,'password':password}).fetchall()
+    result = db.execute("SELECT username,user_id FROM users WHERE username=:username AND password =:password",{'username':username,'password':password}).fetchall()
     db.commit()
     if result:
         response = jsonify({'login':True,'response':[dict(row) for row in result]})
         response.headers.add("Access-Control-Allow-Origin", "*")
+        print('success')
         return  response
+    else:
+        response = jsonify({'login':False})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        print('success')
+        return  response
+
 if __name__ == '__main__':
     app.run(debug=True)
