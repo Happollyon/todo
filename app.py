@@ -25,10 +25,17 @@ def createTable(query):
 def register(username,password):
     result = db.execute("INSERT INTO users(username,password) VALUES(:username,:password) RETURNING user_id, username",{'username':username,'password':password}).fetchall()
     db.commit()
-    print(result)
-    response = jsonify({'response':username})
+    response = jsonify({'login':True,'response':[dict(row) for row in result]})
     response.headers.add("Access-Control-Allow-Origin", "*")
     return  response
 
+@app.route('/login/<string:username>/<string:password>')
+def login(username,password):
+    result = db.execute("SELECT username,user_id FROM users WHERE usernam=:username AND password =:password",{'username':username,'password':password}).fetchall()
+    db.commit()
+    if result:
+        response = jsonify({'login':True,'response':[dict(row) for row in result]})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return  response
 if __name__ == '__main__':
     app.run(debug=True)

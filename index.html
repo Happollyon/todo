@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ToDo</title>
 </head>
-<body>
+<body onload="isLogged()">
     <img id="photo" style="height:100%; width: 47%;" src="./assets/henrik-donnestad-t2Sai-AqIpI-unsplash.png"/>
     <div id="landing-container">
 
@@ -63,6 +63,16 @@
             element.id = "selected"
             document.getElementById("login-singup-button").textContent=string
         }
+        /**this function checkes 
+         * if user is already lo    gged**/
+        function isLogged(){
+            const logged = localStorage.getItem('logged')
+            if(logged=='true'){
+                window.location.href='./home.html'
+            }
+        }
+
+      
 
         /**
          * this function is called whe user 
@@ -78,16 +88,20 @@
             }else{
                 url = "http://127.0.0.1:5000/register/"
             }
-            window.location.href='./home.html'
+            
 
-            /** 
             fetch(url+username+'/'+password).then(response =>{
                 response.json().then(response=>{
+                   if(response.login==true){
                     console.log(response)
                     localStorage.setItem('logged','true')
-                    window.location.href('./home.html')
+                    window.location.href='./home.html'
+                   }else{
+                    alert('Try again')
+                   }
+
                 })}
-            )**/
+            )
         }
 
     </script>
