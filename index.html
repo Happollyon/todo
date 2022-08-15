@@ -96,8 +96,7 @@
                 response.json().then(response=>{
                    if(response.login==true){
                     localStorage.setItem('logged','true')
-                    alert(response.response[0].user_id)
-                    localStorage.setItem('user_id', response.response.user_id)
+                    localStorage.setItem('user_id', response.response[0].user_id)
                     window.location.href='./home.html'
                    }else{
                     alert('Try again')

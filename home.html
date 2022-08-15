@@ -25,184 +25,34 @@
     </div>
     
      <div id="body-container">
-        <div class="item">
-            <div class="item-header">
-               <div class="title-container">
-                     <div class="item-title">
-                        Monday
-                     </div>
-                     <div class="item-descriptions">
-                        5 tasks
-                     </div>
+        <template>
+                <div class="item">
+                    <div class="item-header">
+                    <div class="title-container">
+                            <div class="item-title">
+                                Monday
+                            </div>
+                            <div class="item-descriptions">
+                                5 tasks
+                            </div>
+                        </div>
+                        <img src="/assets/Icon material-delete.svg" class="delete" alt="delete">
+                    </div>
+                    <div data-body_item_id = "0" class="item-body">
+                        <div class="task">
+                            <div class="check"></div>
+                            <div class="task-description">buy new laptop</div>
+                        </div> 
+                    </div>
+                    <div class="item-add">
+                        <input placeholder="Add task">
+                        <img data-item_id="0" class="add-task-button" onclick="addTask(this)" src="/assets/add.svg"/>
+                    </div>
+                    
                 </div>
-                <img src="/assets/Icon material-delete.svg" class="delete" alt="delete">
-            </div>
-            <div class="item-body">
-                <div class="task">
-                    <div class="check"></div>
-                    <div class="task-description">buy new laptop</div>
-                </div> 
-            </div>
-            <div class="item-add">
-                <input placeholder="Add task">
-                <img src="/assets/add.svg"/>
-            </div>
-            
-        </div>
+        </template>
 
-        <div class="item">
-            <div class="item-header">
-               <div class="title-container">
-                     <div class="item-title">
-                        Monday
-                     </div>
-                     <div class="item-descriptions">
-                        5 tasks
-                     </div>
-                </div>
-                <img src="/assets/Icon material-delete.svg" class="delete" alt="delete">
-            </div>
-            <div class="item-body">
-                <div class="task">
-                    <div class="check"></div>
-                    <div class="task-description">buy new laptop</div>
-                </div> 
-            </div>
-            <div class="item-add">
-                <input placeholder="Add task">
-                <img src="/assets/add.svg"/>
-            </div>
-            
-        </div>
-
-
-        <div class="item">
-            <div class="item-header">
-               <div class="title-container">
-                     <div class="item-title">
-                        Monday
-                     </div>
-                     <div class="item-descriptions">
-                        5 tasks
-                     </div>
-                </div>
-                <img src="/assets/Icon material-delete.svg" class="delete" alt="delete">
-            </div>
-            <div class="item-body">
-                <div class="task">
-                    <div class="check"></div>
-                    <div class="task-description">buy new laptop</div>
-                </div> 
-            </div>
-            <div class="item-add">
-                <input placeholder="Add task">
-                <img src="/assets/add.svg"/>
-            </div>
-            
-        </div>
-
-
-        <div class="item">
-            <div class="item-header">
-               <div class="title-container">
-                     <div class="item-title">
-                        Monday
-                     </div>
-                     <div class="item-descriptions">
-                        5 tasks
-                     </div>
-                </div>
-                <img src="/assets/Icon material-delete.svg" class="delete" alt="delete">
-            </div>
-            <div class="item-body">
-                <div class="task">
-                    <div class="check"></div>
-                    <div class="task-description">buy new laptop</div>
-                </div> 
-            </div>
-            <div class="item-add">
-                <input placeholder="Add task">
-                <img src="/assets/add.svg"/>
-            </div>
-            
-        </div>
-
-
-        <div class="item">
-            <div class="item-header">
-               <div class="title-container">
-                     <div class="item-title">
-                        Monday
-                     </div>
-                     <div class="item-descriptions">
-                        5 tasks
-                     </div>
-                </div>
-                <img src="/assets/Icon material-delete.svg" class="delete" alt="delete">
-            </div>
-            <div class="item-body">
-                <div class="task">
-                    <div class="check"></div>
-                    <div class="task-description">buy new laptop</div>
-                </div> 
-            </div>
-            <div class="item-add">
-                <input placeholder="Add task">
-                <img src="/assets/add.svg"/>
-            </div>
-            
-        </div>
-
-        <div class="item">
-            <div class="item-header">
-               <div class="title-container">
-                     <div class="item-title">
-                        Monday
-                     </div>
-                     <div class="item-descriptions">
-                        5 tasks
-                     </div>
-                </div>
-                <img src="/assets/Icon material-delete.svg" class="delete" alt="delete">
-            </div>
-            <div class="item-body">
-                <div class="task">
-                    <div class="check"></div>
-                    <div class="task-description">buy new laptop</div>
-                </div> 
-            </div>
-            <div class="item-add">
-                <input placeholder="Add task">
-                <img src="/assets/add.svg"/>
-            </div>
-            
-        </div>
-
-
-        <div class="item">
-            <div class="item-header">
-               <div class="title-container">
-                     <div class="item-title">
-                        Monday
-                     </div>
-                     <div class="item-descriptions">
-                        5 tasks
-                     </div>
-                </div>
-                <img src="/assets/Icon material-delete.svg" class="delete" alt="delete">
-            </div>
-            <div class="item-body">
-                <div class="task">
-                    <div class="check"></div>
-                    <div class="task-description">buy new laptop</div>
-                </div> 
-            </div>
-            <div class="item-add">
-                <input placeholder="Add task">
-                <img src="/assets/add.svg"/>
-            </div>
-            
-        </div>
+        
        <img onclick="addItem()" id='add-button'src="./assets/button.png" alt="add">
     </div>
 
@@ -213,6 +63,7 @@
             const logged = localStorage.getItem('logged')
             if(logged=='true'){
                 window.location.href='./home.html'
+                selectitems()
             }else{
                 window.location.href='./index.html'
             }
@@ -236,10 +87,46 @@
             let title = prompt("please enter title: ")
             fetch('http://127.0.0.1:5000/additem/'+user_id+'/'+title).then(response =>{
                 response.json().then(response=>{
-                    alert(response.response.item_id +' '+response.response.title)
+                    
                 })
             })
          }
+
+         function selectitems(){
+            user_id = localStorage.getItem('user_id')
+            fetch('http://127.0.0.1:5000/selectitems/'+user_id).then(response =>{
+                response.json().then(response=>{
+                        // loading the the templates structure in a constant 
+                        const template = document.querySelector('template')
+                        response.data.map(item=>{
+                            const elClone= template.content.cloneNode(true);
+                            elClone.querySelector(".item-title").textContent=item.title
+                            elClone.querySelector('.item-body').setAttribute("id","body-"+item.item_id)
+                            elClone.querySelector('.add-task-button').dataset.item_id=item.item_id
+                            document.querySelector("#body-container").appendChild(elClone)
+                        })
+                })
+            })
+         }  
+
+         function addTask(task)
+         {
+            let item_id = task.getAttribute('data-item_id')
+            let description  = task.previousElementSibling
+            description = description.value
+
+            document.getElementById("body-"+item_id).style.backgroundColor="red"
+            fetch('/addtask/'+item_id+'/'+description).then(response=>{
+                response.json().then(response=>{
+                    if(response.added =="true"){
+                        
+                    }else{
+                        alert('error!')
+                    }
+                })
+            })
+         }
+
 </script>
 </body>
 </html>

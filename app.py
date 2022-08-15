@@ -1,4 +1,5 @@
 from crypt import methods
+from dataclasses import dataclass
 import re
 from urllib import response
 from flask import Flask, jsonify,request
@@ -20,6 +21,7 @@ def createTable(query):
     db.execute(query)
     db.commit()
     print('SUCCESS!')
+
 
 
 @app.route('/register/<string:username>/<string:password>',methods=['GET'])
@@ -52,6 +54,26 @@ def login(username,password):
         response.headers.add("Access-Control-Allow-Origin", "*")
         print('success')
         return  response
+
+@app.route('/additem/<int:user_id>/<string:title>')
+def additem(user_id,title):
+    print(user_id, title)
+    item_id= db.execute("INSERT INTO item(title,user_id) VALUES(:title,:user_id) ",{'title':title,'user_id':user_id})
+    db.commit()
+    response = jsonify({'title':title})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    print('success adding item')
+    return  response
+    
+@app.route('/selectitems/<int:user_id>')
+def selectitems(user_id):
+    data = db.execute("SELECT item.item_id,item.title,users.username FROM users INNER JOIN item ON users.user_id=item.user_id where users.user_id=:user_id",   {'user_id':user_id}).fetchall()
+    #data = db.execute("SELECT * FROM item").fetchall()
+    db.commit()
+    response = jsonify({'data':[dict(row) for row in data]})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    print('success collecting items')
+    return  response
 
 if __name__ == '__main__':
     app.run(debug=True)
