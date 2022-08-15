@@ -1,8 +1,5 @@
-from crypt import methods
-from dataclasses import dataclass
-import re
-from sre_constants import SUCCESS
-from urllib import response
+
+from typing import final
 from flask import Flask, jsonify,request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session,sessionmaker
@@ -71,7 +68,17 @@ def additem(user_id,title):
 def selectitems(user_id):
     data = db.execute("SELECT item.item_id,item.title,users.username FROM users INNER JOIN item ON users.user_id=item.user_id where users.user_id=:user_id",   {'user_id':user_id}).fetchall()
     db.commit()
-    response = jsonify({'data':[dict(row) for row in data]})
+    data = [dict(row) for row in data]
+    finaldata=[]
+    for row in data:
+        tasks = db.execute("SELECT * FROM task WHERE item_id=:item_id",{'item_id':row['item_id']}).fetchall()
+        db.commit()
+        tasks = [dict(row) for row in tasks]
+        row['tasks']=tasks
+        print(row)
+        finaldata.append(row)
+    
+    response = jsonify({'data':finaldata})
     response.headers.add("Access-Control-Allow-Origin", "*")
     print('success collecting items')
     return  response

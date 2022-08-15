@@ -103,13 +103,22 @@
                 response.json().then(response=>{
                         // loading the the templates structure in a constant 
                         const template = document.getElementsByTagName('template')[1]
+                        const taskTemplate = document.getElementsByTagName('template')[0]
                         console.log(response.data[0])
                         response.data.map(item=>{
                             const elClone= template.content.cloneNode(true);
                             elClone.querySelector(".item-title").textContent=item.title
                             elClone.querySelector('.item-body').setAttribute("id","body-"+item.item_id)
                             elClone.querySelector('.add-task-button').dataset.item_id=item.item_id
+                           
+                            item.tasks.map(task=>{
+                                const taskClone = taskTemplate.content.cloneNode(true);
+                                taskClone.querySelector('.task').setAttribute("id","task-"+task.task_id)
+                                taskClone.querySelector('.task-description').textContent =  task.description
+                                elClone.querySelector(".item-body").appendChild(taskClone)
+                            })
                             document.querySelector("#body-container").appendChild(elClone)
+                            
                         })
                 })
             })
@@ -121,7 +130,7 @@
             var description  = task.previousElementSibling
             description = description.value
 
-            fetch('http://127.0.0.1:5000//addtask/'+user_id+'/'+item_id+'/'+description).then(response=>{
+            fetch('http://127.0.0.1:5000/addtask/'+user_id+'/'+item_id+'/'+description).then(response=>{
                 response.json().then(response=>{
                     if(response.added ==true){
                         template = document.getElementsByTagName('template')[0]
