@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="/home.css">
- 
+  <link rel="stylesheet" href="home.css">
+  <link rel="shortcut icon" href="#">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
 </head>
@@ -26,6 +26,12 @@
     
      <div id="body-container">
         <template>
+            <div class="task">
+                <div class="check"></div>
+                <div class="task-description">buy new laptop</div>
+            </div>
+        </template> 
+        <template>
                 <div class="item">
                     <div class="item-header">
                     <div class="title-container">
@@ -39,10 +45,7 @@
                         <img src="/assets/Icon material-delete.svg" class="delete" alt="delete">
                     </div>
                     <div data-body_item_id = "0" class="item-body">
-                        <div class="task">
-                            <div class="check"></div>
-                            <div class="task-description">buy new laptop</div>
-                        </div> 
+                        
                     </div>
                     <div class="item-add">
                         <input placeholder="Add task">
@@ -57,12 +60,14 @@
     </div>
 
     <script>
+       
+               
         /**this function checkes 
-         * if user is already lo    gged**/
+         * if user is already logged**/
          function isLogged(){
             const logged = localStorage.getItem('logged')
             if(logged=='true'){
-                window.location.href='./home.html'
+                
                 selectitems()
             }else{
                 window.location.href='./index.html'
@@ -97,7 +102,8 @@
             fetch('http://127.0.0.1:5000/selectitems/'+user_id).then(response =>{
                 response.json().then(response=>{
                         // loading the the templates structure in a constant 
-                        const template = document.querySelector('template')
+                        const template = document.getElementsByTagName('template')[1]
+                        console.log(response.data[0])
                         response.data.map(item=>{
                             const elClone= template.content.cloneNode(true);
                             elClone.querySelector(".item-title").textContent=item.title
@@ -112,14 +118,16 @@
          function addTask(task)
          {
             let item_id = task.getAttribute('data-item_id')
-            let description  = task.previousElementSibling
+            var description  = task.previousElementSibling
             description = description.value
 
-            document.getElementById("body-"+item_id).style.backgroundColor="red"
-            fetch('/addtask/'+item_id+'/'+description).then(response=>{
+            fetch('http://127.0.0.1:5000//addtask/'+user_id+'/'+item_id+'/'+description).then(response=>{
                 response.json().then(response=>{
-                    if(response.added =="true"){
-                        
+                    if(response.added ==true){
+                        template = document.getElementsByTagName('template')[0]
+                        const elClone= template.content.cloneNode(true);
+                        elClone.querySelector('.task-description').textContent=description
+                        document.getElementById("body-"+item_id).appendChild(elClone)
                     }else{
                         alert('error!')
                     }

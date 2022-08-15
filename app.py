@@ -1,6 +1,7 @@
 from crypt import methods
 from dataclasses import dataclass
 import re
+from sre_constants import SUCCESS
 from urllib import response
 from flask import Flask, jsonify,request
 from sqlalchemy import create_engine
@@ -22,6 +23,7 @@ def createTable(query):
     db.commit()
     print('SUCCESS!')
 
+#createTable("ALTER TABLE task ADD COLUMN item_id INT NOT NULL")
 
 
 @app.route('/register/<string:username>/<string:password>',methods=['GET'])
@@ -68,12 +70,19 @@ def additem(user_id,title):
 @app.route('/selectitems/<int:user_id>')
 def selectitems(user_id):
     data = db.execute("SELECT item.item_id,item.title,users.username FROM users INNER JOIN item ON users.user_id=item.user_id where users.user_id=:user_id",   {'user_id':user_id}).fetchall()
-    #data = db.execute("SELECT * FROM item").fetchall()
     db.commit()
     response = jsonify({'data':[dict(row) for row in data]})
     response.headers.add("Access-Control-Allow-Origin", "*")
     print('success collecting items')
     return  response
+@app.route('/addtask/<int:user_id>/<int:item_id>/<string:description>')
+def addtask(user_id,item_id,description):
+    db.execute("INSERT INTO task(description,item_id) VALUES(:description,:item_id)",{'user_id':user_id,'description':description,'item_id':item_id})
+    db.commit()
+    print('Task added')
+    response = jsonify({'added':True})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
