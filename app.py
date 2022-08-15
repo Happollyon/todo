@@ -1,6 +1,5 @@
 
-import json
-from typing import final
+
 from flask import Flask, jsonify,request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session,sessionmaker
@@ -64,6 +63,14 @@ def additem(user_id,title):
     response.headers.add("Access-Control-Allow-Origin", "*")
     print('success adding item')
     return  response
+@app.route('/deleteitem/<int:item_id>')
+def deleteitem(item_id):
+    db.execute("DELETE FROM item WHERE item_id = :item_id",{'item_id':item_id})
+    db.commit()
+    response = jsonify({'deleted':True})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
+
     
 @app.route('/selectitems/<int:user_id>')
 def selectitems(user_id):
@@ -85,7 +92,7 @@ def selectitems(user_id):
     return  response
 @app.route('/addtask/<int:user_id>/<int:item_id>/<string:description>')
 def addtask(user_id,item_id,description):
-    db.execute("INSERT INTO task(description,item_id) VALUES(:description,:item_id)",{'user_id':user_id,'description':description,'item_id':item_id})
+    db.execute("INSERT INTO task(description,item_id) VALUES(:description,:item_id)",{'description':description,'item_id':item_id})
     db.commit()
     print('Task added')
     response = jsonify({'added':True})

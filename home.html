@@ -13,11 +13,7 @@
         <div id="home-title">ToDO</div>
 
         <div id="items-list">
-                <div>- Monday</div>
-                <div>- Tuesday</div>
-                <div>- Wendnesday</div>
-                <div>- Thursday</div>
-                <div>- Friday</div>
+            
         </div>
         <div onclick="logout()" id="logout">
             LOGOUT
@@ -42,7 +38,7 @@
                                 5 tasks
                             </div>
                         </div>
-                        <img src="/assets/Icon material-delete.svg" class="delete" alt="delete">
+                        <img src="/assets/Icon material-delete.svg" onClick="deleteItem(this)" class="delete" alt="delete">
                     </div>
                     <div data-body_item_id = "0" class="item-body">
                         
@@ -92,7 +88,9 @@
             let title = prompt("please enter title: ")
             fetch('http://127.0.0.1:5000/additem/'+user_id+'/'+title).then(response =>{
                 response.json().then(response=>{
-                    
+                    document.getElementById('body-container').innerHTML=""
+                    document.getElementById('items-list').innerHTML=""
+                    selectitems()
                 })
             })
          }
@@ -106,11 +104,17 @@
                         const taskTemplate = document.getElementsByTagName('template')[0]
                         console.log(response.data[0])
                         response.data.map(item=>{
+                            let list = document.getElementById('items-list')
+                            div = document.createElement('div')
+                            div.textContent = '- '+item.title
+                            div.setAttribute('id','list-item-'+item.item_id)
+                            list.append(div)
                             const elClone= template.content.cloneNode(true);
                             elClone.querySelector(".item-title").textContent=item.title
                             elClone.querySelector('.item-body').setAttribute("id","body-"+item.item_id)
                             elClone.querySelector('.add-task-button').dataset.item_id=item.item_id
-                           
+                            elClone.querySelector('.delete').dataset.complete_item_id = item.item_id
+                            elClone.querySelector('.item').setAttribute('id','item-'+item.item_id)
                             /**
                              * interating over tasks and addint to item**/ 
                             item.tasks.map(task=>{
@@ -162,29 +166,41 @@
           * and requests the back end to modify the db
           * **/
 
-          function taskDone(item){
-            if(item.getAttribute('class')=="task"){
-                item.setAttribute('class','task-done')
-                let checkBox = item.children[0]
-                checkBox.setAttribute("class","check-done")
-            }else{
+          function taskDone(item)
+            {
+                if(item.getAttribute('class')=="task"){
+                    item.setAttribute('class','task-done')
+                    let checkBox = item.children[0]
+                    checkBox.setAttribute("class","check-done")
+                }else{
 
-                item.setAttribute('class','task')
-                let checkBox = item.children[0]
-                checkBox.setAttribute("class","check")
-            }
-            
-            let task_id = item.getAttribute('data-task_id')
+                    item.setAttribute('class','task')
+                    let checkBox = item.children[0]
+                    checkBox.setAttribute("class","check")
+                }
+                
+                let task_id = item.getAttribute('data-task_id')
 
-            fetch('http://127.0.0.1:5000/updatetask/'+task_id).then(response=>{
-                response.json().then(response=>{
-                    console.log(response)
+                fetch('http://127.0.0.1:5000/updatetask/'+task_id).then(response=>{
+                    response.json().then(response=>{
+                        console.log(response)
+                    })
                 })
-            })
+            }
 
+            function deleteItem(item){
+                item_id = item.getAttribute('data-complete_item_id')
+                
+                fetch('http://127.0.0.1:5000/deleteitem/'+item_id).then(response=>{
+                    response.json().then(response=>{
+                        if(response.deleted == true){
+                             document.getElementById('item-'+item_id).style.display='none'
+                             document.getElementById('list-item-'+item_id).style.display = "none"
 
-
-          }
+                        }
+                    })
+                })
+            }
 
 </script>
 </body>
