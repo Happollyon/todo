@@ -26,7 +26,7 @@
     
      <div id="body-container">
         <template>
-            <div class="task">
+            <div class="task" onclick="taskDone(this)">
                 <div class="check"></div>
                 <div class="task-description">buy new laptop</div>
             </div>
@@ -111,10 +111,18 @@
                             elClone.querySelector('.item-body').setAttribute("id","body-"+item.item_id)
                             elClone.querySelector('.add-task-button').dataset.item_id=item.item_id
                            
+                            /**
+                             * interating over tasks and addint to item**/ 
                             item.tasks.map(task=>{
                                 const taskClone = taskTemplate.content.cloneNode(true);
                                 taskClone.querySelector('.task').setAttribute("id","task-"+task.task_id)
+                                taskClone.querySelector('.task').dataset.task_id=task.task_id
+                           
                                 taskClone.querySelector('.task-description').textContent =  task.description
+                                if(task.completed==true){
+                                    taskClone.querySelector('.task').setAttribute('class','task-done')
+                                    taskClone.querySelector('.check').setAttribute('class','check-done')
+                                }
                                 elClone.querySelector(".item-body").appendChild(taskClone)
                             })
                             document.querySelector("#body-container").appendChild(elClone)
@@ -124,6 +132,10 @@
             })
          }  
 
+         /**
+          * this function adds new tasks to the item
+          * in the back end and front end.
+          *  **/
          function addTask(task)
          {
             let item_id = task.getAttribute('data-item_id')
@@ -143,6 +155,36 @@
                 })
             })
          }
+
+         /**
+          * This function completes the tasks 
+          * it modifies the task in the front end 
+          * and requests the back end to modify the db
+          * **/
+
+          function taskDone(item){
+            if(item.getAttribute('class')=="task"){
+                item.setAttribute('class','task-done')
+                let checkBox = item.children[0]
+                checkBox.setAttribute("class","check-done")
+            }else{
+
+                item.setAttribute('class','task')
+                let checkBox = item.children[0]
+                checkBox.setAttribute("class","check")
+            }
+            
+            let task_id = item.getAttribute('data-task_id')
+
+            fetch('http://127.0.0.1:5000/updatetask/'+task_id).then(response=>{
+                response.json().then(response=>{
+                    console.log(response)
+                })
+            })
+
+
+
+          }
 
 </script>
 </body>

@@ -1,4 +1,5 @@
 
+import json
 from typing import final
 from flask import Flask, jsonify,request
 from sqlalchemy import create_engine
@@ -75,7 +76,7 @@ def selectitems(user_id):
         db.commit()
         tasks = [dict(row) for row in tasks]
         row['tasks']=tasks
-        print(row)
+        
         finaldata.append(row)
     
     response = jsonify({'data':finaldata})
@@ -91,5 +92,13 @@ def addtask(user_id,item_id,description):
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
+#this endpoint sets task to completed or not
+@app.route('/updatetask/<int:task_id>')
+def updatetask(task_id):
+    val = db.execute('SELECT completed from task WHERE task_id = :task_id',{'task_id':task_id}).fetchone()
+    val = not val[0]
+    db.execute("UPDATE task set completed = :val WHERE task_id=:task_id",{'val':val,'task_id':task_id})
+    db.commit()
+    return jsonify({'updated':True})
 if __name__ == '__main__':
     app.run(debug=True)
