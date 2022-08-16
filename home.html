@@ -19,37 +19,36 @@
             LOGOUT
         </div>
     </div>
-    
-     <div id="body-container">
-        <template>
-            <div class="task" onclick="taskDone(this)">
-                <div class="check"></div>
-                <div class="task-description">buy new laptop</div>
-            </div>
-        </template> 
-        <template>
-                <div class="item">
-                    <div class="item-header">
-                    <div class="title-container">
-                            <div class="item-title">
-                                Monday
-                            </div>
-                            <div class="item-descriptions">
-                                5 tasks
-                            </div>
-                        </div>
-                        <img src="/assets/Icon material-delete.svg" onClick="deleteItem(this)" class="delete" alt="delete">
+    <template>
+        <div class="task" onclick="taskDone(this)">
+            <div class="check"></div>
+            <div class="task-description">buy new laptop</div>
+        </div>
+    </template> 
+    <template>
+        <div class="item">
+            <div class="item-header">
+            <div class="title-container">
+                    <div class="item-title">
+                        Monday
                     </div>
-                    <div data-body_item_id = "0" class="item-body">
-                        
+                    <div class="item-descriptions">
+                        5 tasks
                     </div>
-                    <div class="item-add">
-                        <input placeholder="Add task">
-                        <img data-item_id="0" class="add-task-button" onclick="addTask(this)" src="/assets/add.svg"/>
-                    </div>
-                    
                 </div>
-        </template>
+                <img src="/assets/Icon material-delete.svg" onClick="deleteItem(this)" class="delete" alt="delete">
+            </div>
+            <div data-body_item_id = "0" class="item-body">
+                
+            </div>
+            <div class="item-add">
+                <input placeholder="Add task">
+                <img data-item_id="0" class="add-task-button" onclick="addTask(this)" src="/assets/add.svg"/>
+            </div>
+            
+        </div>
+    </template>
+     <div id="body-container">
 
         
        <img onclick="addItem()" id='add-button'src="./assets/button.png" alt="add">
