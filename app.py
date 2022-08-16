@@ -3,7 +3,7 @@
 from flask import Flask, jsonify,request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session,sessionmaker
-from flask_cors import CORS
+
 
 app = Flask(__name__)
 
