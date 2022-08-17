@@ -189,14 +189,15 @@
             }
 
             function deleteItem(item){
-                item_id = item.getAttribute('data-complete_item_id')
                 
                 fetch('https://getdonetasks.herokuapp.com/deleteitem/'+item_id).then(response=>{
                     response.json().then(response=>{
                         if(response.deleted == true){
-                             document.getElementById('item-'+item_id).style.display='none'
-                             document.getElementById('list-item-'+item_id).style.display = "none"
-
+                                item_id = item.getAttribute('data-complete_item_id')
+                                document.getElementById('item-'+item_id).setAttribute('class','item-deleted')
+                                setTimeout(()=>document.getElementById('item-'+item_id).style.display='none',1600)
+                                document.getElementById('list-item-'+item_id).setAttribute('class','list-item-deleted')
+                                setTimeout(()=>document.getElementById('list-item-'+item_id).style.display='none',1600)
                         }
                     })
                 })
