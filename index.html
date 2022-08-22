@@ -95,6 +95,8 @@
 
             fetch(url+username+'/'+password).then(response =>{
                 response.json().then(response=>{
+                    console.log('Funtion register/login')
+                    console.log(response)
                    if(response.login==true){
                     localStorage.setItem('logged','true')
                     localStorage.setItem('user_id', response.response[0].user_id)

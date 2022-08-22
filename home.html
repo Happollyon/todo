@@ -88,6 +88,8 @@
             let title = prompt("please enter title: ")
             fetch('https://getdonetasks.herokuapp.com/additem/'+user_id+'/'+title).then(response =>{
                 response.json().then(response=>{
+                    console.log('function: Add Item')
+                    console.log(response)
                     document.getElementById('body-container').innerHTML=""
                     document.getElementById('items-list').innerHTML=""
                     selectitems()
@@ -99,10 +101,12 @@
             user_id = localStorage.getItem('user_id')
             fetch('https://getdonetasks.herokuapp.com/selectitems/'+user_id).then(response =>{
                 response.json().then(response=>{
+                        console.log('function: select items')
+                        console.log(response)
                         // loading the the templates structure in a constant 
                         const template = document.getElementsByTagName('template')[1]
                         const taskTemplate = document.getElementsByTagName('template')[0]
-                        console.log(response.data[0])
+                        
                         response.data.map(item=>{
                             let list = document.getElementById('items-list')
                             div = document.createElement('div')
@@ -149,6 +153,9 @@
             fetch('https://getdonetasks.herokuapp.com/addtask/'+user_id+'/'+item_id+'/'+description).then(response=>{
                 response.json().then(response=>{
                     if(response.added ==true){
+
+                        console.log('function addTask:')
+                        console.log(response)
                         template = document.getElementsByTagName('template')[0]
                         const elClone= template.content.cloneNode(true);
                         elClone.querySelector('.task-description').textContent=description
@@ -183,15 +190,19 @@
 
                 fetch('https://getdonetasks.herokuapp.com/updatetask/'+task_id).then(response=>{
                     response.json().then(response=>{
+                        console.log("function taskDone:")
                         console.log(response)
                     })
                 })
             }
 
             function deleteItem(item){
-                
+                item_id = item.getAttribute('data-complete_item_id')
                 fetch('https://getdonetasks.herokuapp.com/deleteitem/'+item_id).then(response=>{
                     response.json().then(response=>{
+                        console.log("function deleteItem:")
+                        console.log(response)
+
                         if(response.deleted == true){
                                 item_id = item.getAttribute('data-complete_item_id')
                                 document.getElementById('item-'+item_id).setAttribute('class','item-deleted')
