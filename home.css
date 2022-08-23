@@ -282,3 +282,26 @@ body,html{
     border: 1px #B2D8BE solid;
     background-color: #B2D8BE;
 }
+
+/*CSS for mobile apps*/
+@media only screen and (max-width: 600px) {
+    #menu{
+        display: none;
+    }
+    #body-container{
+        width: 100%;
+        height: 100vh;
+        flex-direction: column;
+        flex-wrap:nowrap;
+        overflow: auto;
+        align-items: center;
+    }
+    .item{
+        margin-bottom: 5vh;
+        margin-left: 0;
+        width: 90%;
+        height:50vh;
+       
+    }
+
+}
