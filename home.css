@@ -351,7 +351,27 @@ body,html{
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
+        animation: open;
+        animation-duration: 0.5s;
     }
+    @-webkit-keyframes close {
+        0% {
+          width: 85%;
+        }
+        99%{
+            width: 0%;
+        }
+        
+      }
+    @-webkit-keyframes open {
+        0% {
+          width:0%;
+        }
+        100% {
+         width: 85%;
+         
+        }
+      }
     #logout{
         font-size: 150%;
     }
@@ -368,5 +388,19 @@ body,html{
     }
     #home-title>img:hover{
         cursor: pointer;   
+    }
+    #menu{
+        position: block;
+        background-color: #5ba5f3;
+        z-index: 4;
+        animation-name: close;
+        animation-duration: 0.5s;
+        visibility: hidden;
+        transition: linnear, visibility 0.4s;      
+    }
+    #menu>*{
+
+        
+        visibility: hidden;
     }
 }
