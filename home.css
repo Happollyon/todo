@@ -32,12 +32,8 @@ body,html{
     background-color: #F5F5F5;
     display: flex;
     flex-direction: row;
-    
     margin-top: 5%;
-    overflow: auto;
-   
-    
-    
+    overflow: auto;  
 }
 #home-title{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -288,9 +284,6 @@ body,html{
 
 /*CSS for mobile apps*/
 @media only screen and (max-width: 600px) {
-    #menu{
-        display: none;
-    }
     
     #body-container{    
         overflow-y: auto;
@@ -320,10 +313,16 @@ body,html{
         justify-content: space-around;
     }
     #header>img{
+        position: absolute;
+        left: 5%;
         height: 100%;
         width: 10%;
     }
+    #header>img:hover{
+        cursor: pointer;
+    }
     #header>div{
+        
         height: 100%;
         width: 100%;
         display: flex;
@@ -333,5 +332,41 @@ body,html{
         font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         font-size: 150%;
     }
-
+    image{
+        width: 50%;
+    }
+    #add-button{
+        z-index: 3;
+        width: 15%;
+    }
+    #menu-open{
+        display: flex;
+        position: absolute;
+        width: 85%;
+        height: 100%;
+        z-index: 4;
+        background-color: #5ba5f3;
+        border-bottom-right-radius: 3vw;    
+        border-top-right-radius: 3vw;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+    #logout{
+        font-size: 150%;
+    }
+    #home-title{
+        font-size: 200%;
+    }
+    #items-list>div{
+        font-size: 100%;
+    }
+    #home-title{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    #home-title>img:hover{
+        cursor: pointer;   
+    }
 }

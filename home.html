@@ -11,12 +11,10 @@
 <body onload="isLogged()">
     <div id="menu">
         <div id="home-title">
-            
             ToDO
+            <img onclick="closeMenu()" src="./assets/close.svg" alt="">
         </div>
-
-        <div id="items-list">
-            
+        <div id="items-list">   
         </div>
         <div onclick="logout()" id="logout">
             LOGOUT
@@ -53,7 +51,7 @@
     </template>
     <img onclick="addItem()" id='add-button'src="./assets/button.png" alt="add">
     <div id="header">
-        <img src="./assets/menu.svg"/>
+        <img onclick="openMenu()"src="./assets/menu.svg"/>
         <div>ToDo</div>
     </div> 
     <div id="body-container">
@@ -83,10 +81,16 @@
             localStorage.setItem('logged','false')
             window.location.href='./index.html'
          }
+         function closeMenu(){
+            document.getElementById("menu-open").setAttribute('id','menu')
+         }
+         function openMenu() {
+            document.getElementById("menu").setAttribute('id','menu-open')
+        }
 
          /**
           * this function adds a new 
-          * item to the database
+          * item to the databases
           * **/
          function addItem(){
             let user_id = localStorage.getItem('user_id')
