@@ -56,13 +56,13 @@ def login(username,password):
 
 @app.route('/additem/<int:user_id>/<string:title>')
 def additem(user_id,title):
-    print(user_id, title)
-    item_id= db.execute("INSERT INTO item(title,user_id) VALUES(:title,:user_id) ",{'title':title,'user_id':user_id})
+    item_id= db.execute("INSERT INTO item(title,user_id) VALUES(:title,:user_id) RETURNING item_id ",{'title':title,'user_id':user_id}).fetchone()
     db.commit()
-    response = jsonify({'title':title})
+    response = jsonify({'title':title,'item_id':item_id[0]})
     response.headers.add("Access-Control-Allow-Origin", "*")
     print('success adding item')
     return  response
+
 @app.route('/deleteitem/<int:item_id>')
 def deleteitem(item_id):
     db.execute("DELETE FROM item WHERE item_id = :item_id",{'item_id':item_id})

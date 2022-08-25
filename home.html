@@ -98,10 +98,10 @@
             fetch('https://getdonetasks.herokuapp.com/additem/'+user_id+'/'+title).then(response =>{
                 response.json().then(response=>{
                     console.log('function: Add Item')
-                    console.log(response)
                     document.getElementById('body-container').innerHTML=""
                     document.getElementById('items-list').innerHTML=""
-                    selectitems()
+                    
+                    //selectitems()
                 })
             })
          }
