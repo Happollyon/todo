@@ -96,11 +96,24 @@
             let user_id = localStorage.getItem('user_id')
             let title = prompt("please enter title: ")
             fetch('https://getdonetasks.herokuapp.com/additem/'+user_id+'/'+title).then(response =>{
-                response.json().then(response=>{
-                    console.log('function: Add Item')
-                    document.getElementById('body-container').innerHTML=""
-                    document.getElementById('items-list').innerHTML=""
+                response.json().then(item=>{
+                    console.log(item)
+                    const template = document.getElementsByTagName('template')[1]
+                    let list = document.getElementById('items-list')
+                    div = document.createElement('div')
+                    div.textContent = '- '+item.title
+                    div.setAttribute('id','list-item-'+item.item_id)
+                    list.append(div)
+                    const elClone= template.content.cloneNode(true);
+                    elClone.querySelector(".item-title").textContent=item.title
+                    elClone.querySelector('.item-body').setAttribute("id","body-"+item.item_id)
+                    elClone.querySelector('.add-task-button').dataset.item_id=item.item_id
+                    elClone.querySelector('.delete').dataset.complete_item_id = item.item_id
+                    elClone.querySelector('.item').setAttribute('id','item-'+item.item_id)
+
                     
+                    document.querySelector("#body-container").appendChild(elClone)
+
                     //selectitems()
                 })
             })

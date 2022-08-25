@@ -104,7 +104,7 @@ body,html{
 
 .list-item-deleted{
     animation-name: fade-out-right;
-    animation-duration: 1.7s;
+    animation-duration: 1s;
 }
 .item-header{
     width: 100%;
