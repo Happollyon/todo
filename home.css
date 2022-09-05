@@ -407,4 +407,10 @@ body,html{
     #home-title>img{
         display: flex;
     }
+    .item-title{
+        font-size: 5vw;;
+    }
+    .item-descriptions{
+        font-size: 3vw;
+    }
 }
